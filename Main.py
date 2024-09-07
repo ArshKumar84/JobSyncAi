@@ -196,12 +196,12 @@ if job_indexes:
         if(type(JobStatus)!=type(None)):
             JobStatus=JobStatus.text
 
-        JobRequiredSkillsTagList=moreInfo.find('div',class_="mb-3 ml-6 flex flex-wrap justify-start gap-3 text-sm").nextSibling
-        if(type(JobRequiredSkillsTagList)!=type(None)):
-            JobRequiredSkillsTagList=moreInfo.find('div',class_="mb-3 ml-6 flex flex-wrap justify-start gap-3 text-sm").contents
-            JobRequiredSkillsList=[]#List of Job Required Skills
-            for JobRequiredSkillsTag in JobRequiredSkillsTagList:
-                JobRequiredSkillsList.append(JobRequiredSkillsTag.text)
+        # JobRequiredSkillsTagList=moreInfo.find('div',class_="mb-3 ml-6 flex flex-wrap justify-start gap-3 text-sm").nextSibling
+        # if(type(JobRequiredSkillsTagList)!=type(None)):
+        #     JobRequiredSkillsTagList=moreInfo.find('div',class_="mb-3 ml-6 flex flex-wrap justify-start gap-3 text-sm").contents
+        #     JobRequiredSkillsList=[]#List of Job Required Skills
+        #     for JobRequiredSkillsTag in JobRequiredSkillsTagList:
+        #         JobRequiredSkillsList.append(JobRequiredSkillsTag.text)
 
             JobRequiredSkills=""
             for JobRequiredSkill in JobRequiredSkillsList:
