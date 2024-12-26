@@ -38,11 +38,23 @@ for table in tables:
 
 # --------------------------------------------------------4.Getting JobType Input from User----------------------------------------------------------
 #---------------------------------------------------------------------------------STREAMLIT
-st.sidebar.title("Automated Job finder")
-UserJobInput=st.sidebar.text_input("Enter the Job You are looking For :")
+# st.sidebar.title("Automated Job finder")
+# UserJobInput=st.sidebar.text_input("Enter the Job You are looking For :")
+# if UserJobInput:
+#     with st.spinner("Loading..."):
+#         time.sleep(5)
+
+# Title at the top of the page
+st.title("Automated Job Finder")
+
+# Search bar input
+UserJobInput = st.text_input("Enter the job you are looking for:")
+
 if UserJobInput:
     with st.spinner("Loading..."):
         time.sleep(5)
+    st.success(f"Search results for: {UserJobInput}")
+
 #------------------------------------------------------------------------------        
 
 job_indexes = []
