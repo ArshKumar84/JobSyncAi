@@ -343,4 +343,3 @@ if job_indexes:
                                 mailto_link=f'<div style="border: 2px solid red; border-radius: 10px; padding: 10px; display: inline-block;"><a href="https://mail.google.com/mail/?view=cm&fs=1&to={var}&su=Job%20Application&body={encoded_response}">Send Personalised Mail</a></div>'
                                 st.markdown(mailto_link, unsafe_allow_html=True)
         #--------------------------------------------------------------Gemini AI-------------------------------------------------
-~
