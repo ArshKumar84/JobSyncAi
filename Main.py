@@ -75,6 +75,19 @@ def display_single_job(job_data, job_index):
     # Extract and display more information
     extract_and_display_more_info(expander, more_info, job_data, job_index)
 
+    # File upload section
+    uploaded_file = st.file_uploader("Upload your resume (PDF)", type=["pdf"], key=f"upload_{job_index}")
+    if uploaded_file is not None:
+        # Process the uploaded PDF file
+        reader = PdfReader(uploaded_file)
+        if len(reader.pages) > 0:
+            page = reader.pages[0] 
+            resume_info = page.extract_text()
+            st.success("Resume uploaded successfully!")
+            st.text_area("Extracted Resume Information", resume_info, height=300)
+        else:
+            st.warning("PDF file does not contain any pages.")
+
 # Function to get the more info link
 def get_more_info_link(job_links):
     job_links_list = job_links.contents
@@ -83,7 +96,7 @@ def get_more_info_link(job_links):
 # Function to extract and display more information about the job
 def extract_and_display_more_info(expander, more_info, job_data, job_index):
     # Extract company details
-    company_name = more_info.find('p', class_="text-left text -lg font-bold text-secondary-400")
+    company_name = more_info.find('p', class_="text-left text-lg font-bold text-secondary-400")
     company_name = company_name.text if company_name else ""
 
     # Display company name
@@ -91,7 +104,7 @@ def extract_and_display_more_info(expander, more_info, job_data, job_index):
 
     # Extract and display job details
     job_experience_level = more_info.find('p', class_="text-sm font-bold text-secondary-400")
-    job_experience_level = job_experience_level.text if job_experience_level else "N/A"
+ job_experience_level = job_experience_level.text if job_experience_level else "N/A"
     expander.write(f'**{job_experience_level}** Level')
 
     job_work_type = more_info.find('p', class_="rounded-full bg-primary-50 px-4 py-2 text-sm text-primary-400")
