@@ -50,7 +50,7 @@ if UserJobInput:
     for index,UserjobType in enumerate(jobTypeList):
         if UserJobInput.lower() in UserjobType.text.lower():
             job_indexes.append(index)
-            
+
 
 if job_indexes:
     for job_index in job_indexes:
@@ -86,12 +86,11 @@ if job_indexes:
 #For now we are taking 'moreInfoIndex'
 # ------------------------------------------5.Retrieving Selected Job Information from simplify to display----------------------------------------------------------
 
-## -----------------------------------------------2.Requesting and Getting response from simplify----------------------------------------------------------------
-        
+# -----------------------------------------------2.Requesting and Getting response from simplify----------------------------------------------------------------
+
         expander = c.expander("MORE INFO")
-        
         moreInfoIndex=job_index
-            
+
         JobLinkListList=JobLinkList[moreInfoIndex].contents
 
         if(len(JobLinkListList)==1):
@@ -103,13 +102,13 @@ if job_indexes:
 
         ##---------------------------------------------Extracting Data from Simplify of moreInfoLink---------------------------------------------------------------
         #------------------------------------------Extracting Company Details-----------------------------------------------------
-        companyName=moreInfo.find('p',class_="text-left text-lg font-bold text-blueGray")
+        companyName=moreInfo.find('p',class_="text-left text-lg font-bold text-secondary-400")
         if(type(companyName)!=type(None)):
             companyName=companyName.text
         else:
             companyName=""
 
-        
+
         if(type(moreInfo.find('p',class_="text-left text-sm"))!=type(None)):
             companyWork=moreInfo.find('p',class_="text-left text-sm").text
 
@@ -184,11 +183,11 @@ if job_indexes:
             CompanyBenifits=""
 
         #------------------------------------------Extracting Job Details-------------------------------------------
-        JobExperienceLevel=moreInfo.find('p',class_="text-sm font-semibold")
+        JobExperienceLevel=moreInfo.find('p',class_="text-sm font-bold text-secondary-400")
         if(JobExperienceLevel is not None):
             JobExperienceLevel=JobExperienceLevel.text
 
-        JobWorkType=moreInfo.find('p',class_="rounded-full bg-simplify-light px-4 py-2 text-sm text-simplify-dark")#E.g. - Full Time
+        JobWorkType=moreInfo.find('p',class_="rounded-full bg-primary-50 px-4 py-2 text-sm text-primary-400")#E.g. - Full Time
         if(JobWorkType is not None):
             JobWorkType=JobWorkType.text
 
@@ -197,18 +196,18 @@ if job_indexes:
         if(type(JobStatus)!=type(None)):
             JobStatus=JobStatus.text
 
-        JobRequiredSkillsTagList=moreInfo.find('div',class_="mb-3 ml-6 flex flex-wrap justify-start gap-3 text-xs")
-        if(type(JobRequiredSkillsTagList)!=type(None)):
-            JobRequiredSkillsTagList=moreInfo.find('div',class_="mb-3 ml-6 flex flex-wrap justify-start gap-3 text-xs").contents
-            JobRequiredSkillsList=[]#List of Job Required Skills
-            for JobRequiredSkillsTag in JobRequiredSkillsTagList:
-                JobRequiredSkillsList.append(JobRequiredSkillsTag.text)
+        # JobRequiredSkillsTagList=moreInfo.find('div',class_="mb-3 ml-6 flex flex-wrap justify-start gap-3 text-sm").nextSibling
+        # if(type(JobRequiredSkillsTagList)!=type(None)):
+        #     JobRequiredSkillsTagList=moreInfo.find('div',class_="mb-3 ml-6 flex flex-wrap justify-start gap-3 text-sm").contents
+        #     JobRequiredSkillsList=[]#List of Job Required Skills
+        #     for JobRequiredSkillsTag in JobRequiredSkillsTagList:
+        #         JobRequiredSkillsList.append(JobRequiredSkillsTag.text)
 
             JobRequiredSkills=""
             for JobRequiredSkill in JobRequiredSkillsList:
                 JobRequiredSkills=JobRequiredSkill+","
         else:
-            JobRequiredSkills=""
+            JobRequiredSkills="NO DATA"
 
 
         JobRequirementsTag=moreInfo.find('div',string=re.compile("Requirements")).nextSibling
@@ -270,9 +269,9 @@ if job_indexes:
         expander.write(f'**{JobExperienceLevel}** Level')
         expander.write(f'**{JobLocation}**')
         expander.divider()
-        expander.write("**Required Skills**")
-        expander.write(JobRequiredSkills)
-        expander.divider()
+        # expander.write("**Required Skills**")
+        # expander.write(JobRequiredSkills)
+        # expander.divider()
         if(type(JobRequirementsList)!=type(None)):
             expander.write("**Requirements**")
             for JobRequirement in JobRequirementsList:
@@ -282,7 +281,6 @@ if job_indexes:
             expander.write("**Responsibilities**")
             for JobResponsibility in JobResponsibilitiesList:
                 expander.write(f'-{JobResponsibility}')
-        expander.divider()
 
         #-------------------------------------------------------------------Extracting from Crunchbase link-----------------------------------------------------------------------------
 
@@ -331,7 +329,7 @@ if job_indexes:
                         except Exception as e:
                                 st.error(f"An error occurred: {e}")
                         if flag is not None:
-                                GOOGLE_API_KEY=os.getenv('GeminiAPI')
+                                GOOGLE_API_KEY=st.secrets.GeminiAPI.key
                                 genai.configure(api_key=GOOGLE_API_KEY)
 
                                 model=genai.GenerativeModel('gemini-pro')
@@ -340,8 +338,9 @@ if job_indexes:
 
                                 encoded_response = urllib.parse.quote(response.text)
 
-                    
+
                                 # mailto_link = f'<div style="border: 2px solid red; border-radius: 10px; padding: 10px; display: inline-block;"><a href="mailto:{var}?subject={var}&body={encoded_response}" target="_top" style="text-decoration: none; color: grey;">Send Personalised Mail</a></div>'
                                 mailto_link=f'<div style="border: 2px solid red; border-radius: 10px; padding: 10px; display: inline-block;"><a href="https://mail.google.com/mail/?view=cm&fs=1&to={var}&su=Job%20Application&body={encoded_response}">Send Personalised Mail</a></div>'
                                 st.markdown(mailto_link, unsafe_allow_html=True)
         #--------------------------------------------------------------Gemini AI-------------------------------------------------
+~
