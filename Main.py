@@ -104,10 +104,11 @@ def extract_and_display_more_info(expander, more_info, job_data, job_index):
 
     # Extract and display job details
     job_experience_level = more_info.find('p', class_="text-sm font-bold text-secondary-400")
- job_experience_level = job_experience_level.text if job_experience_level else "N/A"
+    job_experience_level = job_experience_level.text if job_experience_level else "N/A"
     expander.write(f'**{job_experience_level}** Level')
 
-    job_work_type = more_info.find('p', class_="rounded-full bg-primary-50 px-4 py-2 text-sm text-primary-400")
+    job_work_type = more_info.find('p', class_="rounded-full bg-primary-50 ```python
+    px-4 py-2 text-sm text-primary-400")
     job_work_type = job_work_type.text if job_work_type else "N/A"
     expander.write(f'Work Type: **{job_work_type}**')
 
