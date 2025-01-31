@@ -332,7 +332,7 @@ if job_indexes:
                                 GOOGLE_API_KEY=st.secrets.GeminiAPI.key
                                 genai.configure(api_key=GOOGLE_API_KEY)
 
-                                model=genai.GenerativeModel('gemini-pro')
+                                model=genai.GenerativeModel('gemini-1.5-pro')
 
                                 response=model.generate_content(f'Generate a Professional E-mail body for tech job of {companyName},{jobType} acccording {ResumeInfo}, the resume should be accurate with no blanks to fill in 500 charcters only')
 
